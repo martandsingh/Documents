@@ -54,3 +54,81 @@ You can go to the dashboard tab in databricks as shown below:
 You will see a list of dashboard with [dbdemos] prefix. 
 
 ![image](https://github.com/user-attachments/assets/34c3773d-1d0f-4dad-8fb8-ad5428d01afb)
+
+You can find the details here:
+https://www.databricks.com/resources/demos/tutorials/governance/system-tables
+
+You can also monitor your billing using system tables. To use these tables you should have at least select permissions on these tables. If you dont have that, you may have to contact your databricks admin.
+Below query uses:
+1. system.billing.usage - for more details https://docs.databricks.com/en/admin/system-tables/billing.html 
+2. system.billing.list_prices - for more details https://docs.databricks.com/en/admin/system-tables/pricing.html
+
+Below query uses billing usage and pricing table to determine daily cost for different workspaces. Before executing don't forget to replace you staging & production workspace id respectively. If you dont have multiple env then you can remove the case statement (Environment column).
+``` sql
+SELECT
+  (
+    CASE workspace_id
+      WHEN '{staging-workspace-id}' THEN 'Staging'
+      WHEN '{production-workspace-id}' THEN 'Production'
+      ELSE 'Development'
+    END
+  ) as Environment,
+  workspace_id,
+  usage.usage_date,
+  SUM(
+    usage.usage_quantity * list_prices.pricing.effective_list.default
+  ) as `Total Dollar Cost`,
+  (
+    SUM(
+      usage.usage_quantity * list_prices.pricing.effective_list.default
+    ) - LAG (
+      SUM(
+        usage.usage_quantity * list_prices.pricing.effective_list.default
+      )
+    ) OVER (
+      PARTITION BY
+        workspace_id
+      ORDER BY
+        usage.usage_date
+    )
+  ) / SUM(
+    usage.usage_quantity * list_prices.pricing.effective_list.default
+  ) AS AmountChange
+FROM
+  system.billing.usage
+  JOIN system.billing.list_prices ON list_prices.sku_name = usage.sku_name
+WHERE
+  usage.usage_end_time >= list_prices.price_start_time
+  AND (
+    list_prices.price_end_time IS NULL
+    OR usage.usage_end_time < list_prices.price_end_time
+  )
+  AND usage.usage_date BETWEEN DATE_FORMAT (DATE_ADD (DAY, -60, CURRENT_DATE()), 'yyyy-MM-dd') AND DATE_FORMAT  (CURRENT_DATE(), 'yyyy-MM-dd')
+GROUP BY
+  workspace_id,
+  usage.usage_date
+ORDER BY
+  usage.usage_date
+```
+
+# What is a databricks compute?
+Databricks compute refers to the selection of computing resources available in the Databricks workspace. Users need access to compute to run data engineering, data science, and data analytics workloads, such as production ETL pipelines, streaming analytics, ad-hoc analytics, and machine learning.
+
+Users can either connect to existing compute or create new compute if they have the proper permissions.
+You can view the compute you have access to using the Compute section of the workspace:
+
+## Types of compute
+These are the types of compute available in Databricks:
+1. **All-Purpose compute**: Provisioned compute used to analyze data in notebooks. You can create, terminate, and restart this compute using the UI, CLI, or REST API.
+2. **Job compute**: Provisioned compute used to run automated jobs. The Databricks job scheduler automatically creates a job compute whenever a job is configured to run on new compute. The compute terminates when the job is complete. You cannot restart a job compute. See Use Databricks compute with your jobs.
+3. **Instance pools**: Compute with idle, ready-to-use instances, used to reduce start and autoscaling times. You can create this compute using the UI, CLI, or REST API.
+
+Reference: https://docs.gcp.databricks.com/en/compute/index.html#:~:text=These%20are%20the%20types%20of%20compute%20available%20in,used%20to%20reduce%20start%20and%20autoscaling%20times.%20
+
+# What can be the potential issues?
+1. Are you using all-purpose cluster/compute to run your workflows or scheduled jobs?
+2. Is you all-prupose cluster or SQL warehouse compute running all the time?
+3. Have you scheduled frequent alerts which can cause the warehouse compute to run for a longer period of the time?
+4. Can you reduce the workflow frequency to reduce the usage?
+5. Is your cluster overpowered?
+
