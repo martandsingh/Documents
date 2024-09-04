@@ -132,3 +132,23 @@ Reference: https://docs.gcp.databricks.com/en/compute/index.html#:~:text=These%2
 4. Can you reduce the workflow frequency to reduce the usage?
 5. Is your cluster overpowered?
 
+##  Are you using all-purpose cluster/compute to run your workflows or scheduled jobs?
+A common mistake among the developers is that they use an interactive or all-purpose cluster to run databricks workflow or scheduled notebooks. One should always use job compute or job pool to run databricks workflow. The job compute is cheaper and will die as soon as job finishes. 
+
+## Is you all-prupose cluster or SQL warehouse compute running all the time?
+Do not forget to "terminate after" setting for your compute. This setting will terminate your cluster after a set period of time if it is unused by any developer or job. I personally like to terminate my cluster after 60 minutes of inactivity. You can set as per your own use cases. 
+
+## Have you scheduled frequent alerts which can cause the warehouse compute to run for a longer period of the time?
+Databricks is growing day by day and providing you new amazing features. The alert mechanism is also one of them but new feature means one more addition to your monthly billing. Databricks alerts uses a SQL query to send you frequent alert based on a certain condition. To perform this operation it uses SQL warehouse cluster. If you set frequent alerts, your SQL warehouse compute may run for a longer period of time than you desire. This will increase your billing amount as warehouse clusters are quite expensive. Sometimes you need to run a script which involve terminate and load, i would prefer to create a notebook and schedule it with a job cluter.
+
+##  Can you reduce the workflow frequency to reduce the usage?
+More your workflow runs, more it costs you. So before scheduling your pipeline it is important to decide a correct frequency so that it solves your business problem and dont hits you hard on your OPEX side. So it is always better to schedule your pipeline with the correct frequency. 
+
+## Is your cluster overpowered?
+You can track your cluster memory used, data processed and other metrics. This will help you to guide if your cluster is overpower. You can set a threshold and monitor if you compute power is exceeding that or not.
+![image](https://github.com/user-attachments/assets/bedbca6b-855a-48a7-b387-1edea6d59d4f)
+
+![image](https://github.com/user-attachments/assets/131d1e90-1f13-4521-a030-9e8ca1926659)
+
+
+
