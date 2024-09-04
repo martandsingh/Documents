@@ -1,7 +1,8 @@
 
 # Unlock Massive Savings: Top Strategies to Slash Your Databricks Monthly Costs!
-
 ![data-science-partner-databricks-290x100-4c25-d@2x](https://github.com/user-attachments/assets/87ce2f0f-a9b7-4042-a283-cbec6596bab2)
+
+```So one day you wakeup and have your coffee as always. It is just a wonderful day like any other day until you see a budget exceeding alert for your data platform. Believe me!! that will wake you up faster than your freshly brewed coffee. Somehow you gather the courage to open the email and find out your monthly budget exceeded by more than 60%. What will you do?```
 
 Saving on Databricks costs is crucial for several reasons:
 
@@ -38,7 +39,6 @@ To avoid high billing, it’s crucial to carefully assess and select appropriate
 2. The organization has different databricks workspaces for dev, staging and production.
 3. The organization is using SQL warehouse cluster.
 
-```So one day you wakeup and have your coffee as always. It is just a wonderful day like any other day until you see a budget exceeding alert for your data platform. Believe me!! that will wake you up faster than your freshly brewed coffee. Somehow you gather the courage to open the email and find out your monthly budget exceeded by more than 60%. What will you do?```
 
 ```Before going to the databricks clusters and reduce the cluster capacity, we should understand first what is wrong with the whole incidence?```
 
