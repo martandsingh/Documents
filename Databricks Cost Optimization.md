@@ -14,7 +14,7 @@ Saving on Databricks costs is crucial for several reasons:
 Overall, cost savings in Databricks is about achieving a balance between harnessing the platform’s full potential and maintaining financial prudence.
 
 
-#Using the wrong resources in Databricks can lead to high billing in several ways:
+Using the wrong resources in Databricks can lead to high billing in several ways:
 
 1. **Over-Provisioned Clusters**: Selecting larger or more powerful clusters than necessary for a given task can result in paying for unused or underutilized compute capacity. For example, using high-memory or high-CPU instances for simple, less demanding jobs leads to higher costs without additional benefits.
 2. **Under-Provisioned Clusters**: Conversely, using clusters that are too small or underpowered for the workload can lead to inefficiencies and slower processing times. This can cause jobs to take longer to complete, potentially leading to higher costs due to extended resource usage.
