@@ -1,6 +1,9 @@
 
 # Unlock Massive Savings: Top Strategies to Slash Your Databricks Monthly Costs!
 
+![databricks-logo](https://github.com/user-attachments/assets/c661d386-1b60-4b50-805f-d1fbb7e478a6)
+
+
 Saving on Databricks costs is crucial for several reasons:
 
 1. **Budget Efficiency**: Databricks, as a powerful data platform, can become quite expensive, especially for large-scale operations. Reducing costs helps companies manage their budgets more effectively and allocate resources to other critical areas.
@@ -36,7 +39,7 @@ To avoid high billing, it’s crucial to carefully assess and select appropriate
 2. The organization has different databricks workspaces for dev, staging and production.
 3. The organization is using SQL warehouse cluster.
 
-```So one day you wakeup and have your coffee as always. It is just a wonderful day as always until you see a budget exceeding alert for you data platform. Believe me!! that will wake you up faster than your freshly brewed coffee. Somehow you gather the courage to open the email and find out your monthly budget exceeded by more than 60%. What will you do?```
+```So one day you wakeup and have your coffee as always. It is just a wonderful day like any other day until you see a budget exceeding alert for your data platform. Believe me!! that will wake you up faster than your freshly brewed coffee. Somehow you gather the courage to open the email and find out your monthly budget exceeded by more than 60%. What will you do?```
 
 ```Before going to the databricks clusters and reduce the cluster capacity, we should understand first what is wrong with the whole incidence?```
 
@@ -131,6 +134,11 @@ Reference: https://docs.gcp.databricks.com/en/compute/index.html#:~:text=These%2
 3. Have you scheduled frequent alerts which can cause the warehouse compute to run for a longer period of the time?
 4. Can you reduce the workflow frequency to reduce the usage?
 5. Is your cluster overpowered?
+6. Do you really need cluster for staging or production?
+7. Can you use job compute?
+
+
+# What are the best practices to avoid all these problems?
 
 ##  Are you using all-purpose cluster/compute to run your workflows or scheduled jobs?
 A common mistake among the developers is that they use an interactive or all-purpose cluster to run databricks workflow or scheduled notebooks. One should always use job compute or job pool to run databricks workflow. The job compute is cheaper and will die as soon as job finishes. 
@@ -151,4 +159,10 @@ You can track your cluster memory used, data processed and other metrics. This w
 ![image](https://github.com/user-attachments/assets/131d1e90-1f13-4521-a030-9e8ca1926659)
 
 
+## Do you really need cluster for staging or production?
+In most of the cases, organizations keep their staging and production read-only or provide access to limited person only. As a data engineer or data scientist you will be developing ETL/ELT pipeline, ML notebooks on development env and move it to staging and production using CI/CD. The workflows on staging and production will use job pool or job compute to run. Most of the companies dont do direct development on stagin and production (definitely). So in that case think twice before you create a interactive cluster on staging or production env. 
 
+## Can you use job compute?
+Databricks pools are a set of idle, ready-to-use instances. When cluster nodes are created using the idle instances, cluster start and auto-scaling times are reduced. If the pool has no idle instances, the pool expands by allocating a new instance from the instance provider in order to accommodate the cluster’s request. 
+
+Read more about job pool https://docs.databricks.com/en/compute/pool-index.html#:~:text=Databricks%20pools%20are%20a%20set%20of%20idle%2C%20ready-to-use,provider%20in%20order%20to%20accommodate%20the%20cluster%E2%80%99s%20request.
