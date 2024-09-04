@@ -1,8 +1,7 @@
 
 # Unlock Massive Savings: Top Strategies to Slash Your Databricks Monthly Costs!
 
-![databricks-logo](https://github.com/user-attachments/assets/c661d386-1b60-4b50-805f-d1fbb7e478a6)
-
+![data-science-partner-databricks-290x100-4c25-d@2x](https://github.com/user-attachments/assets/87ce2f0f-a9b7-4042-a283-cbec6596bab2)
 
 Saving on Databricks costs is crucial for several reasons:
 
@@ -166,3 +165,5 @@ In most of the cases, organizations keep their staging and production read-only 
 Databricks pools are a set of idle, ready-to-use instances. When cluster nodes are created using the idle instances, cluster start and auto-scaling times are reduced. If the pool has no idle instances, the pool expands by allocating a new instance from the instance provider in order to accommodate the cluster’s request. 
 
 Read more about job pool https://docs.databricks.com/en/compute/pool-index.html#:~:text=Databricks%20pools%20are%20a%20set%20of%20idle%2C%20ready-to-use,provider%20in%20order%20to%20accommodate%20the%20cluster%E2%80%99s%20request.
+
+Thank you!! follow me on linkedin for more. linkedin.com/in/martandsays
