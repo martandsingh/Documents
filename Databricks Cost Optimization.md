@@ -135,6 +135,7 @@ Reference: https://docs.gcp.databricks.com/en/compute/index.html#:~:text=These%2
 5. Is your cluster overpowered?
 6. Do you really need cluster for staging or production?
 7. Can you use job compute?
+8. Did you notice your worker nodes?
 
 
 # What are the best practices to avoid all these problems?
@@ -163,6 +164,11 @@ In most of the cases, organizations keep their staging and production read-only 
 
 ## Can you use job compute?
 Databricks pools are a set of idle, ready-to-use instances. When cluster nodes are created using the idle instances, cluster start and auto-scaling times are reduced. If the pool has no idle instances, the pool expands by allocating a new instance from the instance provider in order to accommodate the cluster’s request. 
+
+## Did you notice your worker nodes?
+When you create a compute, we have to be very careful about number of worker nodes. As each node is a different machine which is eventually increasing your cost. So be very mindful about the number of worker nodes. Try to limit it as per your requirement.
+
+```Note: Above mentioned techniques are based on my personal experience. If you have ever faced any situation like this and have a resolution, feel free to contirbute to the document.```
 
 Read more about job pool https://docs.databricks.com/en/compute/pool-index.html#:~:text=Databricks%20pools%20are%20a%20set%20of%20idle%2C%20ready-to-use,provider%20in%20order%20to%20accommodate%20the%20cluster%E2%80%99s%20request.
 
